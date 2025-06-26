@@ -10,7 +10,14 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: 'https://mern-stack-chat-assignment.vercel.app', 
+    methods: ['GET', 'POST'],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Create HTTP server
