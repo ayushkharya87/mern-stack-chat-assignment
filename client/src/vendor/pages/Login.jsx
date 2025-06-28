@@ -32,7 +32,7 @@ export default function VendorLogin() {
 
   return (
     <div className=" d-flex flex-column justify-content-center align-items-center min-vh-100 text-white bg-black">
-      <div className="col-md-6 bg-dark p-4 rounded shadow">
+      <div className="col-md-6 col-11 bg-dark p-4 rounded shadow">
         <h2 className="text-center mb-4">Vendor Login</h2>
 
         {error && <div className="alert alert-danger">{error}</div>}
