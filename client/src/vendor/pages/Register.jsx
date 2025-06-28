@@ -24,10 +24,36 @@ export default function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
         setError('');
-        if (formData.password !== formData.confirmPassword) {
+
+        // Basic Validation
+        const { name, email, phone, password, confirmPassword } = formData;
+
+        if (!name || !email || !phone || !password || !confirmPassword) {
+            setError('All fields are required');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setError('Please enter a valid email address');
+            return;
+        }
+
+        if (!/^\d{10}$/.test(phone)) {
+            setError('Phone number must be 10 digits');
+            return;
+        }
+
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters long');
+            return;
+        }
+
+        if (password !== confirmPassword) {
             setError('Passwords do not match');
             return;
         }
+
         try {
             const res = await axios.post(API_URL, formData);
             const sessionData = {
@@ -35,8 +61,10 @@ export default function Register() {
                 timestamp: Date.now(),
             };
             localStorage.setItem('vendor', JSON.stringify(sessionData));
+
             const agentRes = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/agent/default`);
             const agentId = agentRes.data._id;
+
             navigate(`/vendor/chat?agent=${agentId}`);
         } catch (err) {
             console.error(err);
@@ -47,7 +75,7 @@ export default function Register() {
 
     return (
         <div className=" d-flex flex-column justify-content-center align-items-center min-vh-100 text-white bg-black">
-            <div className="col-md-6 bg-dark p-4 rounded shadow">
+            <div className="col-md-6 col-11 bg-dark p-4 rounded shadow">
                 <h2 className="text-center mb-4">Vendor Registration</h2>
 
                 {error && <div className="alert alert-danger">{error}</div>}
@@ -82,7 +110,13 @@ export default function Register() {
                             className="form-control"
                             placeholder="Phone Number"
                             value={formData.phone}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                                const onlyNums = e.target.value.replace(/\D/g, '');
+                                setFormData({ ...formData, phone: onlyNums });
+                            }}
+                            maxLength={10}
+                            inputMode="numeric"
+                            pattern="\d*"
                             required
                         />
                     </div>
