@@ -57,34 +57,61 @@ export default function AgentDashboard() {
             Logout
           </button>
         </div>
-
         <div className="row g-4">
           {vendors.map((vendor) => (
-            <div className="col-md-4" key={vendor._id}>
-              <div className="card text-dark">
+            <div className="col-12 col-md-6 mb-4" key={vendor._id}>
+              <div className="card shadow border-0 h-100">
                 <div className="card-body">
-                  <h5 className="card-title">{vendor.name}</h5>
-                  <p className="card-text mb-1">
-                    <strong>Email:</strong> {vendor.email}
-                  </p>
-                  <p className="card-text mb-1">
-                    <strong>Phone:</strong> {vendor.phone}
-                  </p>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() =>
-                      navigate(`/agent/chat?vendor=${vendor._id}`, {
-                        state: {
-                          vendorName: vendor.name,
-                          vendorEmail: vendor.email,
-                        },
-                      })
-                    } >
-                    Chat
-                  </button>
+                  {/* Header */}
+                  <div className="d-flex align-items-center mb-3">
+                    <div className="me-3">
+                      <i className="fas fa-store fa-2x text-primary"></i>
+                    </div>
+                    <div>
+                      <h5 className="mb-0 fw-bold">{vendor.shopName}</h5>
+                      <small className="text-muted">{vendor.shopCategory}</small>
+                    </div>
+                  </div>
+
+                  {/* Vendor Info - Responsive Stack */}
+                  <div className="row">
+                    <div className="col-12 col-sm-6 mb-2">
+                      <p className="mb-1"><i className="fas fa-user me-1 text-secondary"></i>{vendor.name}</p>
+                      <p className="mb-1"><i className="fas fa-envelope me-1 text-secondary"></i>{vendor.email}</p>
+                      <p className="mb-1"><i className="fas fa-phone me-1 text-secondary"></i>{vendor.phone}</p>
+                      <p className="mb-1"><i className="fas fa-city me-1 text-secondary"></i>{vendor.city}, {vendor.state}</p>
+                    </div>
+
+                    <div className="col-12 col-sm-6 mb-2">
+                      <p className="mb-1"><i className="fas fa-map-marker-alt me-1 text-secondary"></i>{vendor.address}</p>
+                      <p className="mb-1"><i className="fas fa-globe me-1 text-secondary"></i>{vendor.country}</p>
+                      <p className="mb-1"><i className="fas fa-receipt me-1 text-secondary"></i>GST: {vendor.gstNumber}</p>
+                      {vendor.businessLicenseNo && (
+                        <p className="mb-1"><i className="fas fa-id-card me-1 text-secondary"></i>Lic: {vendor.businessLicenseNo}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Chat Button */}
+                  <div className="text-end mt-3">
+                    <button
+                      className="btn btn-sm btn-outline-primary"
+                      onClick={() =>
+                        navigate(`/agent/chat?vendor=${vendor._id}`, {
+                          state: {
+                            vendorName: vendor.name,
+                            vendorEmail: vendor.email,
+                          },
+                        })
+                      }
+                    >
+                      <i className="fas fa-comments me-1"></i>Chat
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+
           ))}
         </div>
       </div>
