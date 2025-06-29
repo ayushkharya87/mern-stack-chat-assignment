@@ -3,9 +3,26 @@ const Message = require('../../models/Message');
 
 // Register  vendor
 exports.registerVendor = async (req, res) => {
-  const { name, email, phone, password, confirmPassword } = req.body;
+  const {
+    name,
+    email,
+    phone,
+    password,
+    confirmPassword,
+    shopName,
+    shopCategory,
+    address,
+    city,
+    state,
+    country,
+    businessLicenseNo,
+    gstNumber
+  } = req.body;
 
-  if (!name || !email || !phone || !password || !confirmPassword) {
+  // Basic field validation
+  if (!name || !email || !phone || !password || !confirmPassword ||
+      !shopName || !shopCategory || !address || !city || !state ||
+      !country || !gstNumber) {
     return res.status(400).json({ message: 'All fields are required.' });
   }
 
@@ -19,14 +36,36 @@ exports.registerVendor = async (req, res) => {
       return res.status(400).json({ message: 'Vendor already registered with this email.' });
     }
 
-    const vendor = new Vendor({ name, email, phone, password });
+    const vendor = new Vendor({
+      name,
+      email,
+      phone,
+      password,
+      shopName,
+      shopCategory,
+      address,
+      city,
+      state,
+      country,
+      businessLicenseNo,
+      gstNumber
+    });
+
     await vendor.save();
 
     res.status(201).json({
       _id: vendor._id,
       name: vendor.name,
       email: vendor.email,
-      phone: vendor.phone
+      phone: vendor.phone,
+      shopName: vendor.shopName,
+      shopCategory: vendor.shopCategory,
+      address: vendor.address,
+      city: vendor.city,
+      state: vendor.state,
+      country: vendor.country,
+      businessLicenseNo: vendor.businessLicenseNo,
+      gstNumber: vendor.gstNumber
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
