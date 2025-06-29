@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 
-const socket = io(import.meta.env.VITE_API_BASE_URL); 
+const socket = io(import.meta.env.VITE_API_BASE_URL);
 
 const VendorChat = () => {
     const navigate = useNavigate();
@@ -107,8 +107,8 @@ const VendorChat = () => {
 
     return (
         <div className="container-fluid vh-100 bg-dark text-white d-flex">
-            <div className="col-md-3 bg-secondary p-4 d-flex flex-column justify-content-center">
-                <div className="text-center">
+            <div className="col-md-3 bg-secondary p-4 d-md-block d-none">
+                <div className="text-center d-flex flex-column justify-content-center align-items-center h-100">
                     <div
                         className="rounded-circle bg-light text-dark fw-bold d-flex align-items-center justify-content-center mx-auto mb-3"
                         style={{ width: 80, height: 80, fontSize: 24 }} >
@@ -122,7 +122,22 @@ const VendorChat = () => {
             </div>
 
             {/* Chat Area */}
-            <div className="col-md-9 d-flex flex-column p-4">
+            <div className="col-md-9 col-12 d-flex flex-column p-md-4 py-md-4 py-2">
+                <div className="d-flex d-md-none align-items-center justify-content-between bg-secondary text-white p-2 rounded mb-2">
+                    <div className="d-flex align-items-center gap-2">
+                        <div
+                            className="rounded-circle bg-light text-dark fw-bold d-flex align-items-center justify-content-center"
+                            style={{ width: 40, height: 40, fontSize: 18 }}
+                        >
+                            A
+                        </div>
+                        <h6 className="mb-0">Agent</h6>
+                    </div>
+                    <button className="btn btn-sm btn-danger" onClick={handleLogout}>
+                        Logout
+                    </button>
+                </div>
+
                 <div className="flex-grow-1 overflow-auto mb-3 border rounded p-3" style={{ backgroundColor: '#1e1e1e' }}>
                     {messages.map((msg, index) => (
                         <div
