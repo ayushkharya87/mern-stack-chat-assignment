@@ -21,6 +21,46 @@ const vendorSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  shopName: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  shopCategory: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  address: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  city: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  state: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  country: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  businessLicenseNo: {
+    type: String,
+    required: false,
+    trim: true
+  },
+  gstNumber: {
+    type: String,
+    required: true,
+    trim: true
   }
 }, {
   timestamps: true
