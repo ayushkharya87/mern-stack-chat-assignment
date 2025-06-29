@@ -62,17 +62,6 @@ export default function AgentLogin() {
             </button>
           </div>
         </form>
-
-        <p className="mt-3 text-center">
-          New agent?{' '}
-          <span
-            className="text-info text-decoration-underline"
-            role="button"
-            onClick={() => navigate('/agent')}
-          >
-            Register
-          </span>
-        </p>
       </div>
     </div>
   );
