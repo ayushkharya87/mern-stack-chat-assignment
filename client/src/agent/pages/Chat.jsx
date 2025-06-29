@@ -6,7 +6,7 @@ import { io } from 'socket.io-client';
 const socket = io(import.meta.env.VITE_API_BASE_URL);
 
 const AgentChat = () => {
-  
+
   const navigate = useNavigate();
   const location = useLocation();
   const [vendors, setVendors] = useState([]);
@@ -173,7 +173,7 @@ const AgentChat = () => {
             className="btn btn-light me-3 d-md-none"
              onClick={() => navigate('/agent/dashboard')}
           >
-            ← Back
+            ←
           </button>
           <div
             className="rounded-circle bg-light text-dark fw-bold d-flex align-items-center justify-content-center me-3"
